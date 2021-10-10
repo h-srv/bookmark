@@ -1,0 +1,1 @@
+uwsgi  --enable-threads --http :5000 --wsgi-file wsgi.py --callable app
