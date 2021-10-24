@@ -1,2 +1,2 @@
 # pocket-ws-flask
-pocket web service in Flask
+[Pocket](https://getpocket.com/) web service in Flask for educational purpose experiments.
