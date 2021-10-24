@@ -4,5 +4,6 @@ Flask-DotEnv==0.1.2
 itsdangerous==2.0.1
 Jinja2==3.0.2
 MarkupSafe==2.0.1
+python-dotenv==0.19.1
 uWSGI==2.0.20
 Werkzeug==2.0.2
