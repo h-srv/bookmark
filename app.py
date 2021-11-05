@@ -1,5 +1,6 @@
+# ----------------------------------
 # flask application and middleware
-# -------------
+# ----------------------------------
 import os
 from flask import Flask
 from flask_cors import CORS
@@ -11,14 +12,15 @@ app = Flask(__name__)
 CORS(app)
 
 # DB
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['SQLALCHEMY_DATABASE_URI']
+app.config['SQLALCHEMY_DATABASE_URI'] = '{DB_DRVR}://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}'.format(**os.environ)
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 
 
+# ----------------------------------
 # setup routes
-# -------------
+# ----------------------------------
 from health_check.api import check
 from pocket.api import store
 
