@@ -1,5 +1,6 @@
 from app import db
 
+
 # Pocket model
 class Pocket(db.Model):
     __tablename__ = 'pockets'
