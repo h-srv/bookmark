@@ -1,9 +1,9 @@
-from wsgi import db
+from ..infrastructure import db
 
 
 # Pocket model
-class Pocket(db.Model):
-    __tablename__ = 'pockets'
+class Tag(db.Model):
+    __tablename__ = 'tags'
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(1024), nullable=False)
