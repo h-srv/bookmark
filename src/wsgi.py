@@ -10,12 +10,12 @@ from .bookmark.tag.api import store as tag_store
 from flask import Flask
 
 
-def create_app():
+def create_app() -> Flask:
     """
     Create app
     :return:
     """
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder=None)
 
     # load db config and init db
     app.config['SQLALCHEMY_DATABASE_URI'] = '{DB_DRIVER}://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}'.format(**os.environ)
@@ -30,11 +30,12 @@ def create_app():
 
     return app
 
-def routes(app: Flask):
+
+def routes(app: Flask) -> None:
     """
     setup routes
     :param app:
     :return:
     """
-    app.add_url_rule('/health', view_func=health_check_api, methods=['GET'])
-    app.add_url_rule('/pockets', view_func=tag_store, methods=['POST'])
+    app.add_url_rule('/api/v1/health', view_func=health_check_api, methods=['GET'])
+    app.add_url_rule('/api/v1/pockets', view_func=tag_store, methods=['POST'])
