@@ -1,13 +1,15 @@
 """
 Bookmark flask application and middleware
 """
-
 import os
+import pymysql
 
 from .bookmark.health_check import api as health_check_api
 from .bookmark.infrastructure import db, cors, migrate
 from .bookmark.tag.api import store as tag_store
-from flask import Flask
+from flask import Flask, g
+
+pymysql.install_as_MySQLdb()
 
 
 def create_app() -> Flask:
@@ -27,6 +29,9 @@ def create_app() -> Flask:
     migrate.init_app(app, db)  # setup migrate
 
     routes(app)  # load routes
+
+    with app.app_context():
+        g.db = db
 
     return app
 
