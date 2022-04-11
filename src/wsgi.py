@@ -4,9 +4,8 @@ Bookmark flask application and middleware
 import os
 import pymysql
 
-from .bookmark.health_check import api as health_check_api
-from .bookmark.infrastructure import db, cors, migrate
-from .bookmark.tag.api import store as tag_store
+from .bookmark.infrastructure import db, cors, migrate, api
+from .bookmark.tag.api import tag_ns
 from flask import Flask
 
 pymysql.install_as_MySQLdb()
@@ -27,17 +26,12 @@ def create_app() -> Flask:
     db.init_app(app)  # setup db
     cors.init_app(app)  # setup cors
     migrate.init_app(app, db)  # setup migrate
+    api.init_app(app)  # setup api
 
-    routes(app)  # load routes
+    load_api_ns(api)
 
     return app
 
 
-def routes(app: Flask) -> None:
-    """
-    setup routes
-    :param app:
-    :return:
-    """
-    app.add_url_rule('/api/v1/health', view_func=health_check_api, methods=['GET'])
-    app.add_url_rule('/api/v1/pockets', view_func=tag_store, methods=['POST'])
+def load_api_ns(api):
+    api.add_namespace(tag_ns)
