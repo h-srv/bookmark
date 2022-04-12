@@ -18,3 +18,13 @@ class TagRepository(Repository):
     Tag repo
     """
     pass
+
+
+class TagDTO:
+    """DTO for tag"""
+    @staticmethod
+    def to_tag(tag) -> Tag:
+        return Tag(
+            title=tag.get('title'),
+            user_rel=tag.get('user_rel')
+        )
