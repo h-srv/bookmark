@@ -1,11 +1,35 @@
+from typing import Union
+
 from ..infrastructure import db
+from ..shared.domain import Model, Repository
 
 
-# Pocket model
-class Tag(db.Model):
+class Tag(Model):
+    """
+    Tag model
+    """
     __tablename__ = 'tags'
+    __table_args__ = (db.UniqueConstraint('id', 'user_rel', name='uniq_tags_id_user_rel'),)
 
-    id = db.Column(db.Integer, primary_key=True)
+    user_rel = db.Column(db.String(64), nullable=True)  # may be bigint or some other hash
     title = db.Column(db.String(1024), nullable=False)
-    created_at = db.Column(db.DateTime, nullable=True)
-    updated_at = db.Column(db.DateTime, nullable=True)
+
+
+class TagRepository(Repository):
+    """
+    Tag repo
+    """
+
+    @staticmethod
+    def get_where(conditions: dict) -> Union[list[Tag], None]:
+        return Tag.query.filter_by(**conditions).all()
+
+
+class TagDTO:
+    """DTO for tag"""
+    @staticmethod
+    def to_tag(tag) -> Tag:
+        return Tag(
+            title=tag.get('title'),
+            user_rel=tag.get('user_rel')
+        )

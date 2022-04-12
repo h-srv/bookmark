@@ -20,6 +20,8 @@ MarkupSafe = "*"
 SQLAlchemy = "*"
 Werkzeug = "*"
 pymysql = "*"
+cryptography = "*"
+flask-restx = "*"
 
 [dev-packages]
 
