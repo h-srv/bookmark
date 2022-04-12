@@ -1,7 +1,6 @@
-from flask_restx import Namespace, Resource, fields
+from flask_restx import Namespace, Resource, fields, reqparse
 
 from .domain import TagRepository, TagDTO
-
 
 tag_ns = Namespace('api/v1/tags', description='Tag api')
 tag = tag_ns.model('Tag', {
@@ -11,6 +10,8 @@ tag = tag_ns.model('Tag', {
     'created_at': fields.String(readonly=True, description='The tag create datetime'),
     'updated_at': fields.String(readonly=True, description='The tag update datetime'),
 })
+
+reqp = reqparse.RequestParser()
 
 
 @tag_ns.route('')
@@ -24,3 +25,16 @@ class TagList(Resource):
         TagRepository.create_or_fail(tag_mdl)
         return tag_mdl
 
+    @tag_ns.doc('tag.list')
+    @tag_ns.expect(reqp)
+    @tag_ns.marshal_list_with(tag)
+    def get(self):
+        """Create a tag"""
+        reqp.add_argument('user_rel',
+                          type=int,
+                          required=True,
+                          location='args',
+                          help='`user_rel` is')
+        req_args = reqp.parse_args()
+
+        return TagRepository.get_where(req_args)
