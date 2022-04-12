@@ -1,3 +1,5 @@
+from typing import Union
+
 from ..infrastructure import db
 from ..shared.domain import Model, Repository
 
@@ -17,7 +19,10 @@ class TagRepository(Repository):
     """
     Tag repo
     """
-    pass
+
+    @staticmethod
+    def get_where(conditions: dict) -> Union[list[Tag], None]:
+        return Tag.query.filter_by(**conditions).all()
 
 
 class TagDTO:

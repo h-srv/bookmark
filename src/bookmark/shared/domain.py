@@ -1,3 +1,5 @@
+from abc import ABC, abstractmethod
+
 from ..infrastructure import db
 
 
@@ -17,7 +19,10 @@ class Model(db.Model):
                            onupdate=db.func.current_timestamp())
 
 
-class Repository:
+class Repository(ABC):
+    """
+    Base repository
+    """
     @staticmethod
     def create_or_fail(mdl: Model) -> None:
         db.session.add(mdl)
@@ -26,7 +31,12 @@ class Repository:
     @staticmethod
     def create(mdl: Model) -> bool:
         try:
-            Repository.create_or_fail()
-            return True
+            Repository.create_or_fail(mdl)
         except Exception:
             return False
+        else:
+            return True
+
+    @staticmethod
+    @abstractmethod
+    def get_where(conditions): pass
