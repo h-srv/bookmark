@@ -23,6 +23,7 @@ pymysql = "*"
 cryptography = "*"
 flask-restx = "*"
 flask-marshmallow = "*"
+marshmallow-sqlalchemy = "*"
 
 [dev-packages]
 
