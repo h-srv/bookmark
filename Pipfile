@@ -22,6 +22,7 @@ Werkzeug = "*"
 pymysql = "*"
 cryptography = "*"
 flask-restx = "*"
+flask-marshmallow = "*"
 
 [dev-packages]
 
