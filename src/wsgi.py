@@ -4,7 +4,7 @@ Bookmark flask application and middleware
 import os
 import pymysql
 
-from .bookmark.infrastructure import db, cors, migrate, api
+from .bookmark.infrastructure import db, cors, migrate, api, ma
 from .bookmark.tag.api import tag_ns
 from flask import Flask
 
@@ -27,6 +27,7 @@ def create_app() -> Flask:
     cors.init_app(app)  # setup cors
     migrate.init_app(app, db)  # setup migrate
     api.init_app(app)  # setup api
+    ma.init_app(app)  # setup marshmallow
 
     load_api_ns(api)
 
