@@ -29,14 +29,5 @@ class Repository(ABC):
         db.session.commit()
 
     @staticmethod
-    def create(mdl: Model) -> bool:
-        try:
-            Repository.create_or_fail(mdl)
-        except Exception:
-            return False
-        else:
-            return True
-
-    @staticmethod
     @abstractmethod
     def get_where(conditions): pass
