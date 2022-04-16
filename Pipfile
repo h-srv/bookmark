@@ -21,6 +21,7 @@ SQLAlchemy = "*"
 Werkzeug = "*"
 pymysql = "*"
 cryptography = "*"
+cerberus = "*"
 
 [dev-packages]
 
