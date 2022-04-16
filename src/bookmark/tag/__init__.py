@@ -1,6 +1,2 @@
-from flask import Blueprint
-
 from .domain import *
-
-
-blueprint_tag = Blueprint('blueprint_tag', __name__)
+from .api import blueprint_tag
