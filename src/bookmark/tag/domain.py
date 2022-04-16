@@ -1,6 +1,6 @@
 from typing import Union
 
-from ..infrastructure import db, ma
+from ..infrastructure import db
 from ..shared.domain import Model, Repository
 
 
@@ -23,15 +23,3 @@ class TagRepository(Repository):
     @staticmethod
     def get_where(conditions: dict) -> Union[list[Tag], None]:
         return Tag.query.filter_by(**conditions).all()
-
-
-class TagSchema(ma.SQLAlchemySchema):
-    """DTO for tag"""
-    class Meta:
-        model=Tag
-
-    id = ma.auto_field()
-    title = ma.auto_field()
-    user_rel = ma.auto_field()
-    created_at = ma.auto_field()
-    updated_at = ma.auto_field()
