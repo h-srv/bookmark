@@ -1,8 +1,8 @@
 """tags and base with unique
 
-Revision ID: 51507ba80c1f
+Revision ID: 035e7209663c
 Revises: 
-Create Date: 2022-04-11 21:29:35.777232
+Create Date: 2022-04-16 11:22:34.040818
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '51507ba80c1f'
+revision = '035e7209663c'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -23,9 +23,9 @@ def upgrade():
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.Column('user_rel', sa.String(length=64), nullable=True),
-    sa.Column('title', sa.String(length=1024), nullable=False),
+    sa.Column('title', sa.String(length=128), nullable=False),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('id', 'user_rel', name='uniq_tags_id_user_rel')
+    sa.UniqueConstraint('title', 'user_rel', name='uniq_title_user_rel')
     )
     # ### end Alembic commands ###
 
