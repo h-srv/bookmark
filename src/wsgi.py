@@ -7,6 +7,7 @@ import pymysql
 from flask import Flask
 
 from .bookmark.infrastructure import db, cors, migrate
+from .bookmark.tag import blueprint_tag
 
 pymysql.install_as_MySQLdb()
 
@@ -26,5 +27,7 @@ def create_app() -> Flask:
     db.init_app(app)  # setup db
     cors.init_app(app)  # setup cors
     migrate.init_app(app, db)  # setup migrate
+
+    app.register_blueprint(blueprint_tag, url_prefix='/api/v1/tags')
 
     return app
