@@ -29,4 +29,4 @@ def tag_create():
     validate_or_fail(request.json, list_schema)
 
     tag = TagRepository.create_or_fail(Tag, request.json)
-    return jsonify(tag)
+    return jsonify(tag), 201
