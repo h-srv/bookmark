@@ -16,7 +16,7 @@ def tag_list():
     }
 
     if not validator.validate(request.args, list_schema):
-        raise TypeError
+        raise ValueError(validator.errors, 422)
 
     tags = TagRepository.get_where(request.args)
     return jsonify(tags)
