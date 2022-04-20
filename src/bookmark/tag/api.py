@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 
-from .domain import TagRepository
+from .domain import TagRepository, Tag
 from ..infrastructure import validator
 
 blueprint_tag = Blueprint('blueprint_tag', __name__)
@@ -18,3 +18,17 @@ def tag_list():
 
     tags = TagRepository.get_where(request.args)
     return jsonify(tags)
+
+
+@blueprint_tag.post('')
+def tag_create():
+    list_schema = {
+        'title': {'type': 'string', 'required': True},
+        'user_rel': {'type': 'string', 'required': True}
+    }
+
+    if not validator.validate(request.json, list_schema):
+        raise ValueError(validator.errors, 422)
+
+    tag = TagRepository.create_or_fail(Tag, request.json)
+    return jsonify(tag)
