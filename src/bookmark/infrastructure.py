@@ -9,7 +9,14 @@ migrate = Migrate()
 validator = Validator()
 
 
+def validate_or_fail(data, schema, code=422):
+    """generic data validation checker"""
+    if not validator.validate(data, schema):
+        raise ValueError(validator.errors, code)
+
+
 def exception_handler(ex):
+    """generic exception handler"""
     from sqlalchemy.exc import IntegrityError
 
     msg, code = {}, 500
