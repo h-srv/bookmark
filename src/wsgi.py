@@ -8,6 +8,7 @@ from flask import Flask, current_app
 
 from .bookmark.infrastructure import db, cors, migrate, exception_handler
 from .bookmark.tag import blueprint_tag
+from .bookmark.content import blueprint_content
 
 pymysql.install_as_MySQLdb()
 
@@ -30,6 +31,7 @@ def create_app() -> Flask:
     migrate.init_app(app, db)  # setup migrate
 
     app.register_blueprint(blueprint_tag, url_prefix='/api/v1/tags')
+    app.register_blueprint(blueprint_content, url_prefix='/api/v1/contents')
 
     app.register_error_handler(Exception, exception_handler)
 

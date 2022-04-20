@@ -9,10 +9,12 @@ migrate = Migrate()
 validator = Validator()
 
 
-def validate_or_fail(data, schema, code=422):
+def validate_or_fail(data, schema, code=422) -> bool:
     """generic data validation checker"""
     if not validator.validate(data, schema):
         raise ValueError(validator.errors, code)
+
+    return True
 
 
 def exception_handler(ex):
