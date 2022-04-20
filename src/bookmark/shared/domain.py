@@ -24,18 +24,11 @@ class Repository(ABC):
     Base repository
     """
     @staticmethod
-    def create_or_fail(mdl: Model) -> None:
+    def create_or_fail(mdlCls, data_dict) -> Model:
+        mdl = mdlCls(**data_dict)
         db.session.add(mdl)
         db.session.commit()
-
-    @staticmethod
-    def create(mdl: Model) -> bool:
-        try:
-            Repository.create_or_fail(mdl)
-        except Exception:
-            return False
-        else:
-            return True
+        return mdl
 
     @staticmethod
     @abstractmethod
